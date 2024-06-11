@@ -7,13 +7,13 @@ We provide some advice for installation all dependencies with conda.
 1. create a conda environement
 
 ```
-conda create -n SiT python=3.7
+conda create -n sit python=3.9
 ```
 
 2. activate the environment
 
 ```
-conda activate SiT
+conda activate sit
 ```
 
 3. install pytorch dependencies
