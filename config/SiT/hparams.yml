@@ -1,0 +1,138 @@
+# @Author: Simon Dahan @SD3004
+# @Date:   31-08-2022 01:00:00
+
+MODEL: sit
+RECONSTRUCTION: False
+distributed_training: False
+
+##################################  DATA & TASK  ##################################
+
+mesh_resolution:
+  ico_mesh: 6 #resolution of the input mesh
+  ico_grid: 2 #resolution of the grid used to extract patches
+  sampling: msm #sampling used for mesh resampling and patch extraction #msm or wb
+  reorder: False #reorder the sequence of patches
+
+ico_0_grid:
+    num_patches: 20 
+    num_vertices: 2145
+
+ico_1_grid:
+    num_patches: 80 
+    num_vertices: 561 
+
+ico_2_grid:
+    num_patches: 320 
+    num_vertices: 153 
+
+ico_3_grid:
+    num_patches: 1280
+    num_vertices: 45
+  
+ico_4_grid:
+    num_patches: 5120
+    num_vertices: 15
+
+ico_5_grid:
+    num_patches: 20480
+    num_vertices: 5
+
+data:
+  path_to_data: /home/sd20/data/ #/home/sd20/data/, /drive/data
+  path_to_template: /home/sd20/data/template_spheres
+  path_to_workdir: /home/sd20/workspace/transformers
+  dataset: dHCP  #dHCP, HCP, UKB
+  dataloader: metrics #metrics, numpy
+  task: scan_age  #scan_age, birth_age, sex, handedness, income_level, fluid_intelligence, sex_msmall, scan_age_msmall,iq
+  configuration: template #native, template
+  masking: True # True to mask the cut. 
+  hemi: half #half, full
+  hemi_part: all
+  normalise: sub-standardise #standardise, standardise-vertex-wise,standardise-channel-wise,False, normalise, group-standardise,sub-standardise
+  modality: cortical_metrics #cortical_metrics, fMRI, memory_task,rsns
+  registration: msmsulc #msmall, msmsulc
+  clipping: True #True, False
+  folder_to_dhcp: metrics/ico_6_msm/base/regression_{}_space_features
+  subset: False
+
+logging:
+  folder_to_save_model: "{}/logs/{}/{}/{}/SiT/ico_grid_{}/{}" #{dataset},{modality},{task},{grid resolution},{configuration}
+
+###################################  MODEL  ####################################
+
+transformer:
+  dim: 192 #192, 384, 768, 96, 48
+  depth: 12 #12, 12, 12
+  heads: 3 #3, 6, 12
+  mlp_ratio: 4 #mlp_dim: 768 #768, 1536, 3072 ## 4*dim according to DeiT
+  pool: 'cls'  # 'cls' or 'mean'
+  num_classes: 1
+  #num_channels: 4 #cortical_metrics UKB/dHCP = 4; fMRI UKB = 490
+  channels:  [0,1,2,3] #[0,1] for working memory and [0,1,2,3] for cortical metrics [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40] for rsns
+  dim_head: 64 #64,32,16
+  dropout: 0.0
+  emb_dropout: 0.0
+  use_pos_embedding: 'sin-cos' #'trainable', 'sin-cos', False
+  use_class_token: True #False
+  trainable_pos_emb: False #False #only for use_pos_embedding=trainable
+  no_class_token_emb: True #to use pos emb in the class token -> False, else True
+  init_weights_layers: False #True
+
+##################################  TRAINING  ###################################
+  
+training:
+  LR: 0.001
+  bs: 128 #per GPU in a distributed setting
+  bs_val: 1
+  epochs: 1000
+  log_training_epoch: 1 #default 5, fMRI 1
+  val_epoch: 10
+  gpu: 0
+  loss: mse #mse, l1
+  testing: True
+  init_weights: False #ssl, imagenet or False
+  finetuning: True
+  save_ckpt: True
+  use_confounds: False
+  use_cross_validation: True #True
+  sampler: False 
+  early_stopping: 300
+  cv_split: [1,2,3,4,5]
+  
+augmentation: # prob of augmentation techniques need to sum to 1
+  prob_augmentation: 0.0  #probability of using any of the augmentation technique; 0.0 to not use any augmentation
+  prob_rotation: 0.5 #use rotation
+  max_abs_deg_rotation: 15
+  prob_warping: 0.5 #use non-linear warping
+  prob_shuffle: 0.0 #use shuffling of patches
+  warp_ico: 2
+
+##################################  OPTIMISATION  ##################################
+  
+optimisation:
+  optimiser: SGD  #Adam, AdamW, SGD
+  use_scheduler: False
+  scheduler: CosineDecay  # CosineDecay, StepLR, ReduceLROnPlateau
+  warmup: False
+  nbr_step_warmup: 1000
+  momentum: 0.9 #default 0.
+  nesterov: False
+
+SGD:
+  weight_decay: 0. #default 0.0
+  momentum: 0.9 #default 0.0
+  nesterov: False
+
+Adam:
+  weight_decay: 0.01  #default 0.0, 0.01
+
+AdamW:
+  weight_decay: 0.01  #default 0.01
+  
+StepLR: 
+  stepsize: 100
+  decay: 0.1
+
+CosineDecay:
+  T_max: 10000  # number of iteration to go from high to low
+  eta_min: 0.00003  #minimum learning rate
