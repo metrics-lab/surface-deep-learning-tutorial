@@ -27,13 +27,13 @@ For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 # 2. Data Preprocessing & Access
 
-To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, follow the following guideline for preprocessing custom datasets. 
+To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, follow the following guideline for preprocessing custom datasets (Section A).
 
 ## A. Data preprocessing for surface deep learning
 
-We provide a bash script to recapitulate the preprocessing steps, that unfolds as follows: 
+The following methodology is intended for processing cortical metrics and functional data in the format `shape.gii` and `func.gii`. We provide a bash script to recapitulate the preprocessing steps, that unfolds as follows: 
 
-a. Metric resampling
+**a. Metric resampling**
 
 Cortical metric or functional files must be resampled to ico6 mesh. We provide ico6 surface meshes, that goes with our triangular mesh patching. 
 
@@ -47,7 +47,7 @@ For further details about the `metric-resample` command please follow [this](htt
 
 
 
-b. Left/Right hemisphere flipping
+**b. Left/Right hemisphere flipping**
 
 For surface deep learning, right hemisphers are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. We provide ico6 surfaces for both left and right hemispheres, however, we recommand resampling all metrics to ico6.L surface for consistency. 
 
@@ -57,7 +57,7 @@ alt="Surface Vision Transformers"
 style="float: left; margin-right: 6px;"/>
 
 
-c. Setting Cortex Left structure
+**c. Setting Cortex Left structure**
 
 Finally, all the resulting metrics must be set to CORTEX LEFT structures. This can be done easily to all metrics files in a given folder, with the following command:
 
@@ -67,7 +67,6 @@ for i in *; do wb_command -metric-resample ${i} ../ico-6.R.surf.gii ../ico-6.L.s
 
 
 d. (optional) Patching surface data
-
 
 
 
@@ -81,9 +80,9 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
     To access the data please:
     <br>
         <ul type="circle">
-            <li>Sign in <a href="https://data.developingconnectome.org/app/template/Login.vm">here</a> </li>
-            <li>Sign the dHCP open access agreement </li>
-            <li> Forward the confirmation email to <b> slcn.challenge@gmail.com</b>  </li>
+            <li> Sign the dHCP open access agreement [here](https://www.developingconnectome.org/data-release/second-data-release/open-access-dhcp-data-terms-of-use-version-4-0_2019-05-23/) </li>
+            <li> Create a [GIN](https://gin.g-node.org/) account </li>
+            <li> Send your GIN username with the dHCP signed form to <b> simon.dahan@kcl.ac.uk</b>  </li>
         </ul>
     </br>
     </p>
@@ -93,11 +92,12 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
       <p>
       Once the confirmation has been sent, you will have access to the <b>G-Node GIN repository</b> containing the data already processed.
       The data used for this project is in the zip files <i>`regression_native_space_features.zip`</i> and <i>`regression_template_space_features.zip`</i>. You also need to use the <i>`ico-6.surf.gii`</i> spherical mesh. 
-       <img src="./docs/g-node.png"
+      <img src="./docs/g-node.png"
         alt="Surface Vision Transformers"
         width="400" 
         height="300"
-        style="float: left; margin-right: 6px;"/>
+        style="float: left; margin-right: 6px;"/>s
+
       </p>
 </details>
 
