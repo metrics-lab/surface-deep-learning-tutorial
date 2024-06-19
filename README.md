@@ -98,8 +98,9 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
   <summary><b> G-Node GIN repository</b></summary>
       <p>
       Once the confirmation has been sent, you will have access to the <b>G-Node GIN repository</b> containing the data already processed.
-      The data used for this project is in the zip files <i>`regression_native_space_features.zip`</i> and <i>`regression_template_space_features.zip`</i>. You also need to use the <i>`ico-6.surf.gii`</i> spherical mesh. 
-      <img src="./docs/g-node.png"
+      The data used for this project is in the zip files <i>`regression_native_space_features.zip`</i> and <i>`regression_template_space_features.zip`</i>. You also need to use the <i>`ico-6.surf.gii`</i> spherical mesh.
+      </br>
+      <img src="./docs/g_node.png"
         alt="Surface Vision Transformers"
         width="400" 
         height="300"
