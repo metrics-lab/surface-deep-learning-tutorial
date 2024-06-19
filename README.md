@@ -29,9 +29,39 @@ For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, follow the following guideline for preprocessing custom datasets. 
 
-## B. Data preprocessing for surfae deep learning
+## A. Data preprocessing for surface deep learning
+
+We provide a bash script to recapitulate the preprocessing steps, that unfolds as follows: 
+
+a. Metric resampling
+
+Cortical metric or functional files must be resampled to ico6 mesh. We provide ico6 surface meshes, that goes with our triangular mesh patching. 
+
+```
+wb_command -metric-resample <metric-in> <current-sphere> <new-sphere> BARYCENTRIC <metric-out>ico-6.R.surf.gii ico-6.L.surf.gii
+```
+
+Where `<metric-in>` is the input metric or functional file, `<new-sphere>` being the ico6 sphere provided, `<current-sphere>` the sphere the input metric is currently registered to. 
+
+For further details about the `metric-resample` command please follow [this](https://www.humanconnectome.org/software/workbench-command/-metric-resample).
 
 
+
+b. Left/Right hemisphere flipping
+
+For surface deep learning, right hemisphers are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. We provide ico6 surfaces for both left and right hemispheres, however, we recommand resampling all metrics to ico6.L surface for consistency. 
+
+
+c. Setting Cortex Left structure
+
+Finally, all the resulting metrics must be set to CORTEX LEFT structures. This can be done easily to all metrics files in a given folder, with the following command:
+
+```
+for i in *; do wb_command -metric-resample ${i} ../ico-6.R.surf.gii ../ico-6.L.surf.gii BARYCENTRIC ${i}; done
+```
+
+
+d. (optional) Patching surface data
 
 
 
