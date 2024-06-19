@@ -51,6 +51,11 @@ b. Left/Right hemisphere flipping
 
 For surface deep learning, right hemisphers are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. We provide ico6 surfaces for both left and right hemispheres, however, we recommand resampling all metrics to ico6.L surface for consistency. 
 
+Once symmetrised, both left and right hemispheres have the same orientation when visualised on a left hemipshere template. 
+<img src="./docs/left_right_example.png"
+alt="Surface Vision Transformers"
+style="float: left; margin-right: 6px;"/>
+
 
 c. Setting Cortex Left structure
 
@@ -99,3 +104,30 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
 **Training** and **validation** sets are available for the task of **birth-age** and **scan-age** prediction, in **template** and **native** configuration.
 
 However the test set is not currently publicly available as used as testing set in the [SLCN challenge](https://slcn.grand-challenge.org/) on surface learning alongside the MLCN workshop at MICCAI 2022. 
+
+# Citation
+
+Please cite these works if you found it useful:
+
+[Surface Vision Transformers: Attention-Based Modelling applied to Cortical Analysis](https://arxiv.org/abs/2203.16414)
+
+```
+@article{dahan2022surface,
+  title={Surface Vision Transformers: Attention-Based Modelling applied to Cortical Analysis},
+  author={Dahan, Simon and Fawaz, Abdulah and Williams, Logan ZJ and Yang, Chunhui and Coalson, Timothy S and Glasser, Matthew F and Edwards, A David and Rueckert, Daniel and Robinson, Emma C},
+  journal={arXiv preprint arXiv:2203.16414},
+  year={2022}
+}
+```
+[The Multiscale Surface Vision Transformer](https://arxiv.org/abs/2204.03408)
+
+```
+@article{dahan2022surface,
+  title={Surface Vision Transformers: Flexible Attention-Based Modelling of Biomedical Surfaces},
+  author={Dahan, Simon and Xu, Hao and Williams, Logan ZJ and Fawaz, Abdulah and Yang, Chunhui and Coalson, Timothy S and Williams, Michelle C and Newby, David E and Edwards, A David and Glasser, Matthew F and others},
+  journal={arXiv preprint arXiv:2204.03408},
+  year={2022}
+}
+```
+
+
