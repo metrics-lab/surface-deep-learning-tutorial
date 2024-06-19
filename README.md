@@ -27,7 +27,7 @@ For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 # 2. Data Preprocessing & Access
 
-To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, follow the following guideline for preprocessing custom datasets (Section A).
+To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, the following guideline provide the  preprocessing steps for custom datasets (Section A).
 
 ## A. Data preprocessing for surface deep learning
 
@@ -44,6 +44,13 @@ wb_command -metric-resample <metric-in> <current-sphere> <new-sphere> BARYCENTRI
 Where `<metric-in>` is the input metric or functional file, `<new-sphere>` being the ico6 sphere provided, `<current-sphere>` the sphere the input metric is currently registered to. 
 
 For further details about the `metric-resample` command please follow [this](https://www.humanconnectome.org/software/workbench-command/-metric-resample).
+
+
+If the original input data, is low resolution, it can be resampled to higher resolution sequentially. For this we provide the icoN resolution surfaces. 
+
+<img src="./docs/Icosphere_Levels.png"
+alt="Surface Vision Transformers"
+style="float: left; margin-right: 6px;"/>
 
 
 
