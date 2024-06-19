@@ -10,18 +10,62 @@ Here, we show how to use the Surface Vision Transformer [SiT](https://www.humanb
      style="float: left; margin-right: 10px;" />
 
 
-# Installation & Set-up
+# 1. Installation & Set-up
 
-## 1. Connectome Workbench
+## A. Connectome Workbench
 
 Connectome Workbench is a free software for visualising neuroimaging data and can be used for visualising cortical metrics on surfaces. Downloads and instructions [here](https://www.humanconnectome.org/software/connectome-workbench). 
 
-## 2. Conda usage
+## B. Conda usage
 
 For PyTorch and dependencies installation with conda, please follow instructions in [install.md](docs/install.md).
 
-## 3. Docker usage
-
-**Coming soon**
+## C. Docker usage
 
 For docker support, please follow instructions in [docker.md](docs/docker.md)
+
+
+# 2. Data 
+
+To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, follow the following guideline for preprocessing custom datasets. 
+
+## B. Data preprocessing for surfae deep learning
+
+
+
+
+
+
+## B. (Optional) Accessing processed data
+
+Cortical surface metrics already processed as in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) and [A. Fawaz et al 2021](https://www.biorxiv.org/content/10.1101/2021.12.01.470730v1) are available upon request. 
+
+<details>
+    <summary><b> How to access the processed data?</b></summary>
+    <p>
+    To access the data please:
+    <br>
+        <ul type="circle">
+            <li>Sign in <a href="https://data.developingconnectome.org/app/template/Login.vm">here</a> </li>
+            <li>Sign the dHCP open access agreement </li>
+            <li> Forward the confirmation email to <b> slcn.challenge@gmail.com</b>  </li>
+        </ul>
+    </br>
+    </p>
+</details>
+<details>
+  <summary><b> G-Node GIN repository</b></summary>
+      <p>
+      Once the confirmation has been sent, you will have access to the <b>G-Node GIN repository</b> containing the data already processed.
+      The data used for this project is in the zip files <i>`regression_native_space_features.zip`</i> and <i>`regression_template_space_features.zip`</i>. You also need to use the <i>`ico-6.surf.gii`</i> spherical mesh. 
+       <img src="./docs/g-node.png"
+        alt="Surface Vision Transformers"
+        width="400" 
+        height="300"
+        style="float: left; margin-right: 6px;"/>
+      </p>
+</details>
+
+**Training** and **validation** sets are available for the task of **birth-age** and **scan-age** prediction, in **template** and **native** configuration.
+
+However the test set is not currently publicly available as used as testing set in the [SLCN challenge](https://slcn.grand-challenge.org/) on surface learning alongside the MLCN workshop at MICCAI 2022. 
