@@ -68,11 +68,19 @@ style="float: left; margin-right: 6px;"/>
 Finally, all the resulting metrics must be set to CORTEX LEFT structures. This can be done easily to all metrics files in a given folder, with the following command:
 
 ```
-for i in *; do wb_command -metric-resample ${i} ../ico-6.R.surf.gii ../ico-6.L.surf.gii BARYCENTRIC ${i}; done
+for i in *; do wb_command -metric-resample ${i} ../ico-6.L.surf.gii BARYCENTRIC ${i}; done
 ```
 
-
 d. (optional) Patching surface data
+
+To run the Surface Vision Transformers, there are two possible approaches, either preprocessed the metrics files to create numpy array with all the compiled data (option 1), or use a custom-made dataset/dataloader which offer more flexibility in terms of data processing and data augmentation techniques (option 2). 
+
+To prepare the data in `option 1`, you can use the YAML file `config/preprocessing/hparams.yml`, change the path to data, set the parameters and run the `preprocessing.py` script in ./tools:
+
+```
+cd tools
+python preprocessing.py ../config/preprocessing/hparams.yml
+```
 
 
 
