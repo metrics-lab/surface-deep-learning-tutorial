@@ -24,7 +24,7 @@ For PyTorch and dependencies installation with conda, please follow instructions
 For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 
-# 2. Data Ppeprocessing & Access to preprocessed data
+# 2. Data Preprocessing & Access to preprocessed data
 
 To simplify reproducibility of our work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, the following guideline provide the  preprocessing steps for custom datasets (Section A).
 
