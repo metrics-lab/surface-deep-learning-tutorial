@@ -1,9 +1,8 @@
-## Surface Deep Learning Tutorial
+## OHBM 2024 - Surface Deep Learning Tutorial
 
-This repository contains the codebase for the surface deep learning tutorial at [OHBM 2024](https://www.humanbrainmapping.org/i4a/pages/index.cfm?pageid=4249).
+This repository contains the codebase for the surface deep learning tutorial at the [OHBM2024 Educational Symposium on Precision Surface Imaging](https://metrics-lab.github.io/ohbm2024/).
 
-Here, we show how to use the Surface Vision Transformer [SiT](https://arxiv.org/abs/2203.16414) and the Multiscale Surface Vision Transformer [MS-SiT](https://arxiv.org/abs/2303.11909) for cortical prediction & classification and cortical segmentation tasks.
-
+Here, we introduce the tools to prepare surface data for surface deep learning. In particular, we detail the preprocessing steps to prepare cortical metrics and functional data in order to use the Surface Vision Transformer [SiT](https://arxiv.org/abs/2203.16414) and the Multiscale Surface Vision Transformer [MS-SiT](https://arxiv.org/abs/2303.11909) for cortical prediction & classification and cortical segmentation tasks.
 
 <img src="./docs/sit_gif.gif"
      alt="Surface Vision Transformers"
@@ -25,9 +24,9 @@ For PyTorch and dependencies installation with conda, please follow instructions
 For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 
-# 2. Data Preprocessing & Access
+# 2. Data Ppeprocessing & Access to preprocessed data
 
-To simplify reproducibility of the work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, the following guideline provide the  preprocessing steps for custom datasets (Section A).
+To simplify reproducibility of our work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, the following guideline provide the  preprocessing steps for custom datasets (Section A).
 
 ## A. Data preprocessing for surface deep learning
 

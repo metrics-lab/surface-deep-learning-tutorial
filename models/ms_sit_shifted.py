@@ -421,8 +421,6 @@ if __name__ == '__main__':
 
     model = MSSiT_shifted()
 
-    import pdb;pdb.set_trace()
-
 
 
 
