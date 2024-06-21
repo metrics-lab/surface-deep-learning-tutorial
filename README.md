@@ -24,20 +24,42 @@ For PyTorch and dependencies installation with conda, please follow instructions
 For docker support, please follow instructions in [docker.md](docs/docker.md)
 
 
-# 2. Data Preprocessing & Access to preprocessed data
+# 2. Data Preprocessing & Access to Preprocessed Data
 
 To simplify reproducibility of our work, data already preprocessed as in in [S. Dahan et al 2021](https://arxiv.org/abs/2203.16414) is available (see Section B). Otherwise, the following guideline provide the  preprocessing steps for custom datasets (Section A).
 
-## A. Data preprocessing for surface deep learning
+## A. Data preprocessing for Surface Deep Learning
 
-The following methodology is intended for processing cortical metrics and functional data in the format `shape.gii` and `func.gii`. We provide a bash script to recapitulate the preprocessing steps, that unfolds as follows: 
+The following methodology is intended for processing CIFTI files into cortical metrics and functional data in the format `shape.gii` and `func.gii`, for deep learning usage. We provide a bash script to recapitulate all the main preprocessing steps in `./tools/surface_preprocessing.sh`. Below are the instructions for each step in the script. 
 
-**a. Metric resampling**
+### Step-by-Step Instruction
 
-Cortical metric or functional files must be resampled to ico6 mesh. We provide ico6 surface meshes, that goes with our triangular mesh patching. 
+a. CIFTI separation
+
+First, we separate the CIFTI files into individual cortical metrics for the left and right hemispheres. This is done using the workbench command `-cifti-separate`. Each metric (e.g., cortical thickness, curvature, MyelinMap_BC, sulcal depth) is saved as a `.shape.gii` file.
 
 ```
-wb_command -metric-resample <metric-in> <current-sphere> <new-sphere> BARYCENTRIC <metric-out>ico-6.R.surf.gii ico-6.L.surf.gii
+wb_command -cifti-separate ${path_to_data}/${subjid}.corrThickness.32k_fs_LR.dscalar.nii COLUMN -metric CORTEX_LEFT ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.L.shape.gii
+wb_command -cifti-separate ${path_to_data}/${subjid}.corrThickness.32k_fs_LR.dscalar.nii COLUMN -metric CORTEX_RIGHT ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.R.shape.gii
+
+```
+
+b. Merge Metrics: 
+
+Then, we merge the individual metric files into a single file for each hemisphere using the workbench `-metric-merge`. This combines multiple cortical metrics into one .shape.gii file for each hemisphere.
+
+
+```
+wb_command -metric-merge ${output_folder_separate}/${subjid}_R.shape.gii -metric ${output_folder_separate}/${subjid}.MyelinMap_BC.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.curvature.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.sulc.32k_fs_LR.R.shape.gii
+
+```
+
+c. Metric resampling
+
+Then, we resample the metrics to a standard icosahedral mesh (ico6) using the wb_command `-metric-resample` command. This ensures all metrics are aligned to a common spherical surface for consistent analysis. We provide ico6 meshes for both hemispheres in the folder `./surfaces`. These icospheres work with our triangular mesh patching. 
+
+```
+wb_command -metric-resample <metric-in> <current-sphere> <new-sphere> BARYCENTRIC <metric-out>
 ```
 
 Where `<metric-in>` is the input metric or functional file, `<new-sphere>` being the ico6 sphere provided, `<current-sphere>` the sphere the input metric is currently registered to. 
@@ -45,37 +67,41 @@ Where `<metric-in>` is the input metric or functional file, `<new-sphere>` being
 For further details about the `metric-resample` command please follow [this](https://www.humanconnectome.org/software/workbench-command/-metric-resample).
 
 
-If the original input data, is low resolution, it can be resampled to higher resolution sequentially. For this we provide the icoN resolution surfaces. 
 
 <img src="./docs/Icosphere_Levels.png"
 alt="Surface Vision Transformers"
 style="float: left; margin-right: 6px;"/>
 
 
+If the original input data, is low resolution, it can be resampled to higher resolution sequentially. For this we provide the icoN resolution surfaces. For instance:
 
-**b. Left/Right hemisphere flipping**
+```
+wb_command -metric-resample <metric-in> ico-1.L.surf.gii ico-2.L.surf.gii BARYCENTRIC <metric-out>
+wb_command -metric-resample <metric-in> ico-2.L.surf.gii ico-3.L.surf.gii BARYCENTRIC <metric-out>
+etc.
+```
 
-For surface deep learning, right hemisphers are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. We provide ico6 surfaces for both left and right hemispheres, however, we recommand resampling all metrics to ico6.L surface for consistency. 
+
+d. Setting Cortex Left structure
+
+For surface deep learning, by convention. right hemispheres are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. 
+
+Therefore you can set the structure of the resampled metrics to CORTEX_LEFT for both hemispheres using the wb_command `-set-structure` command. This standardises the hemisphere structure for subsequent analysis.
+
+```
+for i in *; do wb_command -metric-resample ${i} ../ico-6.L.surf.gii BARYCENTRIC ${i}; done
+```
 
 Once symmetrised, both left and right hemispheres have the same orientation when visualised on a left hemipshere template. 
 <img src="./docs/left_right_example.png"
 alt="Surface Vision Transformers"
 style="float: left; margin-right: 6px;"/>
 
+e. (optional) Patching surface data
 
-**c. Setting Cortex Left structure**
+To run the Surface Vision Transformers, there are two possible approaches, (1) either preprocessed the metrics files to create numpy array with all the compiled data, or (2) use a custom-made dataset/dataloader which offer more flexibility in terms of data processing and data augmentation techniques. 
 
-Finally, all the resulting metrics must be set to CORTEX LEFT structures. This can be done easily to all metrics files in a given folder, with the following command:
-
-```
-for i in *; do wb_command -metric-resample ${i} ../ico-6.L.surf.gii BARYCENTRIC ${i}; done
-```
-
-d. (optional) Patching surface data
-
-To run the Surface Vision Transformers, there are two possible approaches, either preprocessed the metrics files to create numpy array with all the compiled data (option 1), or use a custom-made dataset/dataloader which offer more flexibility in terms of data processing and data augmentation techniques (option 2). 
-
-To prepare the data in `option 1`, you can use the YAML file `config/preprocessing/hparams.yml`, change the path to data, set the parameters and run the `preprocessing.py` script in ./tools:
+To prepare the data in `option 1`, you can use the YAML file `config/preprocessing/hparams.yml`, change the path to data, set the parameters and run the `./tools/preprocessing.py` script in ./tools:
 
 ```
 cd tools
