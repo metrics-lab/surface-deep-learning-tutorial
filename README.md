@@ -186,21 +186,25 @@ Please cite these works if you found it useful:
 [Surface Vision Transformers: Attention-Based Modelling applied to Cortical Analysis](https://arxiv.org/abs/2203.16414)
 
 ```
-@article{dahan2022surface,
-  title={Surface Vision Transformers: Attention-Based Modelling applied to Cortical Analysis},
+@inproceedings{dahan2022surface,
+  title={Surface vision transformers: Attention-based modelling applied to cortical analysis},
   author={Dahan, Simon and Fawaz, Abdulah and Williams, Logan ZJ and Yang, Chunhui and Coalson, Timothy S and Glasser, Matthew F and Edwards, A David and Rueckert, Daniel and Robinson, Emma C},
-  journal={arXiv preprint arXiv:2203.16414},
-  year={2022}
+  booktitle={International Conference on Medical Imaging with Deep Learning},
+  pages={282--303},
+  year={2022},
+  organization={PMLR}
 }
+
 ```
 [The Multiscale Surface Vision Transformer](https://arxiv.org/abs/2204.03408)
 
 ```
-@article{dahan2022surface,
-  title={Surface Vision Transformers: Flexible Attention-Based Modelling of Biomedical Surfaces},
-  author={Dahan, Simon and Xu, Hao and Williams, Logan ZJ and Fawaz, Abdulah and Yang, Chunhui and Coalson, Timothy S and Williams, Michelle C and Newby, David E and Edwards, A David and Glasser, Matthew F and others},
-  journal={arXiv preprint arXiv:2204.03408},
-  year={2022}
+@misc{dahan2024multiscale,
+      title={The Multiscale Surface Vision Transformer}, 
+      author={Simon Dahan and Logan Z. J. Williams and Daniel Rueckert and Emma C. Robinson},
+      year={2024},
+      eprint={2303.11909},
+      archivePrefix={arXiv},}
 }
 ```
 
