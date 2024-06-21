@@ -86,7 +86,7 @@ etc.
 
 d. Setting Cortex Left structure
 
-For surface deep learning, by convention. right hemispheres are flipped such that they appear like right hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. 
+For surface deep learning, by convention, right hemispheres are flipped such that they appear like left hemisphere on the sphere and all hemispheres are processed altogether in the training pipelines. 
 
 Therefore you can set the structure of the resampled metrics to CORTEX_LEFT for both hemispheres using the wb_command `-set-structure` command. This standardises the hemisphere structure for subsequent analysis.
 
@@ -98,6 +98,8 @@ Once symmetrised, both left and right hemispheres have the same orientation when
 <img src="./docs/left_right_example.png"
 alt="Surface Vision Transformers"
 style="float: left; margin-right: 6px;"/>
+
+**Results: After following these steps you should get a set a `shape.gii` files in ico6 resolution and CORTEX LEFT orientation**
 
 e. (optional) Patching surface data
 
