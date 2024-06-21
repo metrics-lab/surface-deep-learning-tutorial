@@ -32,7 +32,7 @@ To simplify reproducibility of our work, data already preprocessed as in in [S. 
 
 The following methodology is intended for processing CIFTI files into cortical metrics and functional data in the format `shape.gii` and `func.gii`, for deep learning usage. We provide a bash script to recapitulate all the main preprocessing steps in `./tools/surface_preprocessing.sh`. Below are the instructions for each step in the script. 
 
-### Step-by-Step Instruction
+### Step-by-Step Instructions
 
 a. CIFTI separation
 
