@@ -159,6 +159,24 @@ Here is a list of available pre-trained models on various datasets.
 | HCP (3T - cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
 
 
+# 4.Training Surface Deep Learning Models
+
+For training a SiT model, use the following command:
+
+```
+cd tools
+python train.py ../config/SiT/hparams.yml
+```
+Where all hyperparameters for training and model design models are to be set in the yaml file `config/SiT/hparams.yml`, such as: 
+
+- Transformer architecture
+- Data loading
+- Optimisation strategy
+- Patching configuration
+- Logging
+
+A jupyter notebook is also provided as a tutorial for training **SiT** and **MS-SiT** models. You can find it in `./script/surface_vision_transformers_tutorial.ipynb`.
+
 # Citation
 
 Please cite these works if you found it useful:
