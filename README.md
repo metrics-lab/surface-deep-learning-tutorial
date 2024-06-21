@@ -148,18 +148,8 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
 
 However the test set is not currently publicly available as used as testing set in the [SLCN challenge](https://slcn.grand-challenge.org/) on surface learning alongside the MLCN workshop at MICCAI 2022. 
 
-# 3. Model Zoo
 
-Here is a list of available pre-trained models on various datasets.
-
-| Dataset | Surface Vision Transformer (SiT) | Multiscale Surface Vision Transformer (MS-SiT) |
-|---------|----------------------------------|------------------------------------------------|
-| dHCP (cortical metrics)   | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp) | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp)|
-| UKB (cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  | [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
-| HCP (3T - cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
-
-
-# 4.Training Surface Deep Learning Models
+# 3.Training Surface Deep Learning Models
 
 For training a SiT model, use the following command:
 
@@ -176,6 +166,18 @@ Where all hyperparameters for training and model design models are to be set in 
 - Logging
 
 A jupyter notebook is also provided as a tutorial for training **SiT** and **MS-SiT** models. You can find it in `./script/surface_vision_transformers_tutorial.ipynb`.
+
+
+# 4. Model Zoo
+
+Here is a list of available pre-trained models on various datasets.
+
+| Dataset | Surface Vision Transformer (SiT) | Multiscale Surface Vision Transformer (MS-SiT) |
+|---------|----------------------------------|------------------------------------------------|
+| dHCP (cortical metrics)   | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp) | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp)|
+| UKB (cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  | [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
+| HCP (3T - cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
+
 
 # Citation
 
