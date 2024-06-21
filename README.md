@@ -36,7 +36,7 @@ The following methodology is intended for processing CIFTI files into cortical m
 
 a. CIFTI separation
 
-First, we separate the CIFTI files into individual cortical metrics for the left and right hemispheres. This is done using the workbench command `-cifti-separate`. Each metric (e.g., cortical thickness, curvature, MyelinMap_BC, sulcal depth) is saved as a `.shape.gii` file.
+First, we separate the CIFTI files in the format `dscalar.nii` into individual cortical metrics for the left and right hemispheres. This is done using the workbench command `-cifti-separate`. Each metric (e.g., cortical thickness, curvature, MyelinMap_BC, sulcal depth) is saved as a `.shape.gii` file.
 
 ```
 wb_command -cifti-separate ${path_to_data}/${subjid}.corrThickness.32k_fs_LR.dscalar.nii COLUMN -metric CORTEX_LEFT ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.L.shape.gii
@@ -51,6 +51,8 @@ Then, we merge the individual metric files into a single file for each hemispher
 
 ```
 wb_command -metric-merge ${output_folder_separate}/${subjid}_R.shape.gii -metric ${output_folder_separate}/${subjid}.MyelinMap_BC.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.curvature.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.R.shape.gii -metric ${output_folder_separate}/${subjid}.sulc.32k_fs_LR.R.shape.gii
+
+wb_command -metric-merge ${output_folder_separate}/${subjid}_L.shape.gii -metric ${output_folder_separate}/${subjid}.MyelinMap_BC.32k_fs_LR.L.shape.gii -metric ${output_folder_separate}/${subjid}.curvature.32k_fs_LR.L.shape.gii -metric ${output_folder_separate}/${subjid}.corrThickness.32k_fs_LR.L.shape.gii -metric ${output_folder_separate}/${subjid}.sulc.32k_fs_LR.L.shape.gii
 
 ```
 
@@ -137,14 +139,23 @@ Cortical surface metrics already processed as in [S. Dahan et al 2021](https://a
         alt="Surface Vision Transformers"
         width="400" 
         height="300"
-        style="float: left; margin-right: 6px;"/>s
-
-      </p>
+        style="float: left; margin-right: 6px;"/>
 </details>
 
 **Training** and **validation** sets are available for the task of **birth-age** and **scan-age** prediction, in **template** and **native** configuration.
 
 However the test set is not currently publicly available as used as testing set in the [SLCN challenge](https://slcn.grand-challenge.org/) on surface learning alongside the MLCN workshop at MICCAI 2022. 
+
+# 3. Model Zoo
+
+Here is a list of available pre-trained models on various datasets.
+
+| Dataset | Surface Vision Transformer (SiT) | Multiscale Surface Vision Transformer (MS-SiT) |
+|---------|----------------------------------|------------------------------------------------|
+| dHCP (cortical metrics)   | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp) | [Scan Age Prediction](http://example.com/sit-dhcp) / [Birth Age Prediction](http://example.com/sit-dhcp)|
+| UKB (cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  | [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
+| HCP (3T - cortical metrics)    |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |  [Scan Age Prediction](http://example.com/sit-dhcp) / [Sex Classification](http://example.com/sit-dhcp)  |
+
 
 # Citation
 
